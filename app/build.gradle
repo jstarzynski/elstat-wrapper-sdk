@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.quilmes.wrapper"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 4
+        versionName "1.3"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "company"
+
+    productFlavors {
+
+        elstat {
+            applicationIdSuffix ".elstat"
+            versionNameSuffix "-elstat"
+            dimension "company"
+            buildConfigField "String", "USERNAME_SUFFIX", "\"@elstat.com\""
+        }
+
+        quilmes {
+            dimension "company"
+            buildConfigField "String", "USERNAME_SUFFIX", "\"@wrapper.quilmes.com\""
+        }
+
+    }
+
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    elstatImplementation project(':nexosdk-elstat')
+    quilmesImplementation project(':nexosdk-quilmes')
+
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.5'
+
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
+
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+
+    // Jackson
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.5.1"
+    implementation "com.fasterxml.jackson.core:jackson-core:2.5.1"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.5.1"
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.5.1"
+
+    // Parceler
+    implementation "org.parceler:parceler-api:1.1.9"
+    implementation 'com.squareup:otto:1.3.6'
+    implementation 'com.google.android.gms:play-services-location:10.2.6'
+
+
+}
